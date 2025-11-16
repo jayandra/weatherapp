@@ -21,9 +21,14 @@ class SearchesController < ApplicationController
 
   # POST /searches or /searches.json
   def create
-    @search = Search.new(search_params)
-    @forecasts = WeatherForecaster.new.perform(latitude: params[:search][:latitude], longitude: params[:search][:longitude], timezone: params[:search][:timezone])
+    # Returns cached forecasts if it exists, otherwise performs new API call and caches the results
+    cache_key = "weather_forecasts_#{params[:search][:latitude]}_#{params[:search][:longitude]}"
+    @cache_exists = Rails.cache.exist?(cache_key)
+    @forecasts = Rails.cache.fetch(cache_key, expires_in: 30.minutes) do
+      WeatherForecaster.new.perform(latitude: params[:search][:latitude], longitude: params[:search][:longitude], timezone: params[:search][:timezone])
+    end
 
+    @search = Search.new(search_params)
     respond_to do |format|
       if @search.save
         format.html { redirect_to @search, notice: "Search was successfully created." }
@@ -59,10 +64,15 @@ class SearchesController < ApplicationController
     end
   end
 
-  # GET /searches/autocomplete?city=
+  # GET /searches/autocomplete?city=<city>
   def autocomplete
-    query = params[:city]
-    results = Geocoder.new.perform(query)
+    # Returns cached results if it exists, otherwise performs a geocoder lookup and caches the results
+    cache_key = "autocomplete_#{params[:city].parameterize}"
+    results = Rails.cache.fetch(cache_key, expires_in: 1.week) do
+      query = params[:city].to_s.strip
+      Geocoder.new.perform(query)
+    end
+
     render json: results.to_json
   end
 

@@ -1,7 +1,12 @@
 <%= turbo_stream.replace "weather_forecasts" do %>
   <div id="weather_forecasts" class="space-y-4">
     <% if @forecasts.present? %>
-      <h2 class="text-xl font-bold mb-4">Weather Forecast for : <%= @search.city %></h2>
+      <section class="mb-4">
+        <h2 class="text-xl font-bold">Weather Forecast for : <%= @search.city %></h2>
+        <% if @cache_exists %>
+          <p class="text-sm text-gray-500">Showing cached forecast (refreshes every 30 minutes)</p>
+        <% end %>
+      </section>
       
       <div class="space-y-3">
         <div class="flex">
