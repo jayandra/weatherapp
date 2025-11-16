@@ -23,7 +23,7 @@ export default class extends Controller {
                 data-long="${city.longitude}"
                 data-tz="${city.timezone}"
               >
-                ${city.name}, ${city.country}
+                ${city.name}, ${city.admin1}, ${city.country}
               </div>
             `
           })
