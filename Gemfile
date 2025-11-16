@@ -63,3 +63,5 @@ group :test do
   gem "webmock"
   gem "mocha"
 end
+
+gem "tailwindcss-rails", "~> 4.4"
