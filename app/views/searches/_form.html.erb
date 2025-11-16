@@ -11,8 +11,21 @@
     </div>
   <% end %>
 
-  <div class="border border-gray-300 rounded m4 p-2">
-    <%= form.text_field :city, class: "w-full" %>
+  <div data-controller="autocomplete-city">
+    <div class="border border-gray-300 rounded m4 p-2">
+      <%= form.text_field :city, 
+        class: "w-full", 
+        placeholder: "city...",
+        data: { 
+          autocomplete_city_target: "input", 
+          action: "input->autocomplete-city#search"
+        } 
+      %>
+    </div>
+    <div data-autocomplete-city-target="results" class="mt-2"></div>
+    <%= form.hidden_field :latitude, data: { autocomplete_city_target: 'latitude' } %>
+    <%= form.hidden_field :longitude, data: { autocomplete_city_target: 'longitude' } %>
+    <%= form.hidden_field :timezone, data: { autocomplete_city_target: 'timezone' } %>
   </div>
 
   <div class="mt-2 flex justify-center">

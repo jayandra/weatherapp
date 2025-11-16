@@ -57,6 +57,13 @@ class SearchesController < ApplicationController
     end
   end
 
+  # GET /searches/autocomplete?city=
+  def autocomplete
+    query = params[:city]
+    results = Geocoder.new.perform(query)
+    render json: results.to_json
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_search
