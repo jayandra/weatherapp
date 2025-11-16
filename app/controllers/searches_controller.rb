@@ -22,11 +22,13 @@ class SearchesController < ApplicationController
   # POST /searches or /searches.json
   def create
     @search = Search.new(search_params)
+    @forecasts = WeatherForecaster.new.perform(latitude: params[:search][:latitude], longitude: params[:search][:longitude], timezone: params[:search][:timezone])
 
     respond_to do |format|
       if @search.save
         format.html { redirect_to @search, notice: "Search was successfully created." }
         format.json { render :show, status: :created, location: @search }
+        format.turbo_stream
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @search.errors, status: :unprocessable_entity }

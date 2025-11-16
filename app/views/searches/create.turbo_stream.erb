@@ -1,0 +1,58 @@
+<%= turbo_stream.replace "weather_forecasts" do %>
+  <div id="weather_forecasts" class="space-y-4">
+    <% if @forecasts.present? %>
+      <h2 class="text-xl font-bold mb-4">Weather Forecast for : <%= @search.city %></h2>
+      
+      <div class="space-y-3">
+        <div class="flex">
+          <label class="w-50">Current temperature:</label>
+          <span><%= @forecasts.current_temp %>°F</span>
+        </div>
+        
+        <div class="flex">
+          <label class="w-50">Today's min temperature:</label>
+          <span><%= @forecasts.today_min_temp %>°F</span>
+        </div>
+        
+        <div class="flex">
+          <label class="w-50">Today's max temperature:</label>
+          <span><%= @forecasts.today_max_temp %>°F</span>
+        </div>
+
+        <div class="flex">
+          <label class="w-50">Next 5 day forecast:</label>
+          <span></span>
+        </div>
+
+        <div>
+          <table>
+            <thead>
+              <tr>
+                <th>Day</th>
+                <th>Min Temp</th>
+                <th>Max Temp</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @forecasts.forecast_temps.each do |day, max_temp, min_temp| %>
+                <tr>
+                  <td class="px-10 py-2 border border-gray-300 border-width-2">
+                    <%= day %>
+                  </td>
+                  <td class="px-10 py-2 border border-gray-300 border-width-2">
+                    <%= min_temp %>°F
+                  </td>
+                  <td class="px-10 py-2 border border-gray-300 border-width-2">
+                    <%= max_temp %>°F
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% else %>
+      <p>No forecast data available for this location.</p>
+    <% end %>
+  </div>
+<% end %>
