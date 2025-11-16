@@ -27,6 +27,7 @@ module HttpClients
         current_temp: @response["current"]["temperature_2m"],
         today_max_temp: @response["daily"]["temperature_2m_max"][0],
         today_min_temp: @response["daily"]["temperature_2m_min"][0],
+        forecast_days: @response["daily"]["time"][1..-1],
         forecast_max_temps: @response["daily"]["temperature_2m_max"][1..-1],
         forecast_min_temps: @response["daily"]["temperature_2m_min"][1..-1]
       }

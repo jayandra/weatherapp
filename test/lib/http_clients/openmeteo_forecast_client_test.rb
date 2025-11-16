@@ -75,6 +75,7 @@ module HttpClients
         current_temp: 69.7,
         today_max_temp: 81.9,
         today_min_temp: 58.5,
+        forecast_days: [ "2025-11-17", "2025-11-18", "2025-11-19", "2025-11-20", "2025-11-21" ],
         forecast_max_temps: [ 86.2, 84.8, 78.9, 75.6, 71.5 ],
         forecast_min_temps: [ 59.6, 68.2, 67.8, 61.2, 57.0 ]
       }
