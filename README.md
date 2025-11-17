@@ -1,6 +1,11 @@
-# Weather Forecast Application
+## Weather Forecast Application
 
-Rails web application that provides weather forecasts using Open-Meteo API. The application features address search (e.g. city, zip etc) with autocomplete, and displays current weather conditions along with a 5-day forecast.
+Rails web application that provides weather forecasts for any address in the world.
+- Supports address search (e.g., city, ZIP code) with autocomplete suggestions.
+- Displays current temperatures along with a 5-day forecast.
+- Implements caching for improved performance (indicates when data is served from cache).
+
+The app has been deployed at https://weatherapp-ahk2.onrender.com. As it is on a free tier, the initial start up might take a few minutes.
 
 ## Tech Stack
 - **Frontend**: Hotwire (Turbo + Stimulus), Tailwind CSS
@@ -10,8 +15,9 @@ Rails web application that provides weather forecasts using Open-Meteo API. The 
     - OpenMeteo Geocoding API for city search
 
 
-    The application uses adapter pattern to abstract underlying API calls by impelementing service objects. As new geocoder or weather API clients get implemented (e.g google, openweather, weather.gov etc); they can be easily swapped out with minimal changes to the application. 
 - **Testing**: Minitest
+    
+    The application uses adapter pattern to abstract API calls through service objects. This allows for seamless integration of additional geocoding or weather API clients (e.g., Google, OpenWeather, Weather.gov) with minimal code changes.
 
 ## Local Setup
 ```bash

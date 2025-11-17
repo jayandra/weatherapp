@@ -1,15 +1,16 @@
 module HttpClients
   class OpenmeteoForecastClient
     BASE_URL = "https://api.open-meteo.com/v1/forecast"
+    DEFAULT_COUNT = 6   # 5 days forecast + today
     DEFAULT_PARAMS ={
       daily: "temperature_2m_max,temperature_2m_min",
       current: "temperature_2m",
-      forecast_days: Geocoder::DEFAULT_COUNT + 1,
+      forecast_days: DEFAULT_COUNT,
       temperature_unit: "fahrenheit"
     }
 
     def initialize
-      @http_client = HttpClients::BaseClient.new
+      @http_client ||= HttpClients::BaseClient.new
     end
 
     # Get forecast for a given location

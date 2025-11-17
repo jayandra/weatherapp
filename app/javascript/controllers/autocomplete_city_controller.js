@@ -27,7 +27,11 @@ export default class extends Controller {
               </div>
             `
           })
+          // replace results with the list of cities and clear hidden fields (latitude, longitude, timezone)
           this.resultsTarget.innerHTML = html
+          this.latitudeTarget.value = "";
+          this.longitudeTarget.value = "";
+          this.timezoneTarget.value = "";
         })
     }
     else { 
@@ -37,11 +41,13 @@ export default class extends Controller {
 
   // Handle the selection of a city
   select(event) { 
+    // set the input value to selected city populate hidden fields (latitude, longitude, timezone)
     this.inputTarget.value = event.currentTarget.textContent.trim();
     this.latitudeTarget.value = event.currentTarget.dataset.lat;
     this.longitudeTarget.value = event.currentTarget.dataset.long;
     this.timezoneTarget.value = event.currentTarget.dataset.tz;
     
+    // clear results
     this.resultsTarget.innerHTML = "";
   }
 }
